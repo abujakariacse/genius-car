@@ -8,7 +8,7 @@ const ServiceDetail = () => {
         navigate('/checkout');
     }
     return (
-        <div>
+        <div className='container text-center mt-5'>
             <h2>This is service detail:{serviceId}</h2>
             <button className='btn btn-primary' onClick={handleProceedCheckout}>Proceed Checkout</button>
         </div>
