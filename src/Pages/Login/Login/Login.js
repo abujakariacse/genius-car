@@ -35,12 +35,12 @@ const Login = () => {
             <Form onSubmit={handleOnSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
+                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={passRef} type="password" placeholder="Password" />
+                    <Form.Control ref={passRef} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
                         {
                             error && <p className='text-danger'>{error.message}</p>

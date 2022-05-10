@@ -7,13 +7,6 @@ const firebaseConfig = {
     storageBucket: process.env.REACT_APP_storageBucket,
     messagingSenderId: process.env.REACT_APP_messagingSenderId,
     appId: process.env.REACT_APP_appId,
-
-    /* apiKey: "AIzaSyBEcKf0fLX9XDLMJ9SkkB0IWfCe7kbJEbM",
-    authDomain: "genius-car-service-791e7.firebaseapp.com",
-    projectId: "genius-car-service-791e7",
-    storageBucket: "genius-car-service-791e7.appspot.com",
-    messagingSenderId: "299509047282",
-    appId: "1:299509047282:web:5d3b41f405d149cbb7556b" */
 };
 
 const app = initializeApp(firebaseConfig);
