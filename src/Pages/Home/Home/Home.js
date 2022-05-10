@@ -6,7 +6,7 @@ import './Home.module.css'
 
 const Home = () => {
     return (
-        <div className='component-container'>
+        <div>
             <Banner></Banner>
             <Services></Services>
             <Experts></Experts>
