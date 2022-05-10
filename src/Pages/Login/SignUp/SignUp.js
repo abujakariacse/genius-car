@@ -10,8 +10,11 @@ const SignUp = () => {
         user,
         loading
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [error, setError] = useState('');
     const navigate = useNavigate();
+    if (user) {
+        navigate('/home')
+    }
+    const [error, setError] = useState('');
     const emailRef = useRef('');
     const nameRef = useRef('');
     const passRef = useRef('');
@@ -30,6 +33,9 @@ const SignUp = () => {
         }
         setError('');
         createUserWithEmailAndPassword(email, pass);
+        if (loading) {
+            setError('Loading......')
+        }
 
 
     }
