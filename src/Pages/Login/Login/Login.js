@@ -1,16 +1,28 @@
 import React, { useRef } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const Login = () => {
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
     const emailRef = useRef('');
     const passRef = useRef('');
     const navigate = useNavigate();
+    if (user) {
+        navigate('/home')
+    }
     const handleOnSubmit = e => {
         e.preventDefault();
         const email = emailRef.current.value;
         const pass = passRef.current.value;
-        console.log(email, pass);
+        signInWithEmailAndPassword(email, pass)
+
 
     }
     const navigateSignup = () => {
@@ -30,7 +42,12 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control ref={passRef} type="password" placeholder="Password" />
                     <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
+                        {
+                            error && <p className='text-danger'>{error.message}</p>
+                        }
+                        {
+                            loading && <Spinner className='mt-3' animation="border" variant="primary" />
+                        }
                     </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">

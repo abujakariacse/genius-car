@@ -8,7 +8,6 @@ const SignUp = () => {
     const [
         createUserWithEmailAndPassword,
         user,
-        loading
     ] = useCreateUserWithEmailAndPassword(auth);
     const navigate = useNavigate();
     if (user) {
@@ -33,9 +32,6 @@ const SignUp = () => {
         }
         setError('');
         createUserWithEmailAndPassword(email, pass);
-        if (loading) {
-            setError('Loading......')
-        }
 
 
     }
