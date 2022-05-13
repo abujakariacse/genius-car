@@ -3,6 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import './SignUp.css'
 
 const SignUp = () => {
     const [
@@ -39,24 +41,20 @@ const SignUp = () => {
         navigate('/login')
     }
     return (
-        <div className='container w-50 mt-2'>
+        <div className='container w-50 mt-2 signup-container'>
             <h2>Please Register</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
                     <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
-                    <Form.Label>Name</Form.Label>
                     <Form.Control ref={nameRef} type="text" placeholder="Enter Your Name" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
                     <Form.Control ref={passRef} type="password" placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formConfirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
                     <Form.Control ref={confirmPassRef} type="password" placeholder="Confirm Password" required />
                     <Form.Text className="text-danger">
                         {error}
@@ -67,6 +65,7 @@ const SignUp = () => {
                     Register
                 </Button>
             </Form>
+            <SocialLogin />
 
         </div>
     );

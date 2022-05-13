@@ -3,6 +3,8 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import './Login.css'
 
 const Login = () => {
     const [
@@ -32,17 +34,14 @@ const Login = () => {
         navigate('/signup')
     }
     return (
-        <div className='container w-50 mx-auto mt-3'>
+        <div className='container w-50 mx-auto mt-3 login-container'>
             <h2 className='text-primary'>Please Login</h2>
-
-            <Form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnSubmit} className='mt-3'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
                     <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
                     <Form.Control ref={passRef} type="password" placeholder="Password" required />
                     <Form.Text className="text-muted">
                         {
@@ -62,6 +61,7 @@ const Login = () => {
                 </Button>
 
             </Form>
+            <SocialLogin />
         </div>
     );
 };
