@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -9,7 +9,7 @@ import './SignUp.css'
 const SignUp = () => {
     const [
         createUserWithEmailAndPassword,
-        user,
+        user, loading
     ] = useCreateUserWithEmailAndPassword(auth);
     const navigate = useNavigate();
     if (user) {
@@ -61,6 +61,9 @@ const SignUp = () => {
                     </Form.Text>
                 </Form.Group>
                 <p>Already Have an Account? <Link onClick={navigateLogin} className='text-danger text-decoration-none' to='/login'>Please Login</Link></p>
+                <h6>{
+                    loading && <Spinner className='mt-3' animation="border" variant="primary" />
+                }</h6>
                 <Button variant="primary" type="submit">
                     Register
                 </Button>

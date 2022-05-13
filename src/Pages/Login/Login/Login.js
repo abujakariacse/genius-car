@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -13,6 +13,9 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending, error1] = useSendPasswordResetEmail(
+        auth
+    );
     const emailRef = useRef('');
     const passRef = useRef('');
     const navigate = useNavigate();
@@ -52,17 +55,22 @@ const Login = () => {
                         }
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
-                <p>New to Genius Car? <Link onClick={navigateSignup} className='text-danger text-decoration-none' to='/signup'>Register</Link></p>
-                <Button variant="primary" type="submit">
+                <Button className='w-50 d-block mx-auto mb-4' variant="primary" type="submit">
                     Login
                 </Button>
+                <p
+                    onClick={async () => {
+                        await sendPasswordResetEmail(emailRef.current.value);
+                        alert('Sent Email');
+
+                    }}
+                    className='forgot-btn text-danger text-center'>Forgot Password? <br />{error1 && error1.message} {sending && 'Sending...'}
+                </p>
+                <p className='text-center'>New to Genius Car? <Link onClick={navigateSignup} className='text-danger text-decoration-none' to='/signup'>Register</Link></p>
 
             </Form>
             <SocialLogin />
-        </div>
+        </div >
     );
 };
 
