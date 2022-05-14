@@ -1,3 +1,5 @@
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -31,11 +33,16 @@ const Header = () => {
                                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
+
                         <Nav>
+
                             <Nav.Link as={Link} to='/about'>About</Nav.Link>
+                            <Nav.Link as={Link} to="/#profile">
+                                <span className='fw-bold ms-3'>{user && user.displayName}</span>
+                            </Nav.Link>
                             {
                                 user ? <Nav.Link onClick={handleSignOut}>
-                                    Sign Out
+                                    <FontAwesomeIcon icon={faArrowRightFromBracket}></FontAwesomeIcon> Sign Out
                                 </Nav.Link> :
                                     <Nav.Link as={Link} to="/login">
                                         Login

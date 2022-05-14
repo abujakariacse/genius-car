@@ -2,18 +2,23 @@ import React, { useRef, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import './SignUp.css'
 
 const SignUp = () => {
+    const [agree, setAgree] = useState(false);
     const [
         createUserWithEmailAndPassword,
         user, loading
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [updateProfile, updating, error1] = useUpdateProfile(auth);
     const navigate = useNavigate();
     if (user) {
-        navigate('/home')
+        console.log(user);
+        navigate('/home');
+
+
     }
     const [error, setError] = useState('');
     const emailRef = useRef('');
@@ -21,7 +26,7 @@ const SignUp = () => {
     const passRef = useRef('');
     const confirmPassRef = useRef('');
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const email = emailRef.current.value;
         const name = nameRef.current.value;
@@ -33,7 +38,9 @@ const SignUp = () => {
             return;
         }
         setError('');
-        createUserWithEmailAndPassword(email, pass);
+        await createUserWithEmailAndPassword(email, pass);
+        await updateProfile({ displayName: name });
+        alert('Profile Updated');
 
 
     }
@@ -59,12 +66,15 @@ const SignUp = () => {
                     <Form.Text className="text-danger">
                         {error}
                     </Form.Text>
+                    <input onClick={() => setAgree(!agree)} className='mt-3' type="checkbox" name="terms" id="terms" />
+                    <label className={`ps-2 ${agree || 'text-danger'}`} htmlFor="terms">Accept Genius Car Terms & Conditions</label><br />
                 </Form.Group>
-                <p>Already Have an Account? <Link onClick={navigateLogin} className='text-danger text-decoration-none' to='/login'>Please Login</Link></p>
+                <p>Already Have an Account? <Link onClick={navigateLogin} className='text-primary text-decoration-none' to='/login'>Please Login</Link></p>
                 <h6>{
                     loading && <Spinner className='mt-3' animation="border" variant="primary" />
                 }</h6>
-                <Button variant="primary" type="submit">
+
+                <Button disabled={!agree} variant="primary" type="submit">
                     Register
                 </Button>
             </Form>
