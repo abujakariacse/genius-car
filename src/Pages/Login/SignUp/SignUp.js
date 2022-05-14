@@ -12,7 +12,7 @@ const SignUp = () => {
         createUserWithEmailAndPassword,
         user, loading
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-    const [updateProfile, updating, error1] = useUpdateProfile(auth);
+    const [updateProfile] = useUpdateProfile(auth);
     const navigate = useNavigate();
     if (user) {
         console.log(user);
