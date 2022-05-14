@@ -6,6 +6,8 @@ import { useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from 
 import auth from '../../../firebase.init';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+
+
 const SocialLogin = () => {
     const navigate = useNavigate();
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);

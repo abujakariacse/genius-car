@@ -4,7 +4,10 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import './Login.css'
+import './Login.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BeatLoader } from 'react-spinners';
 
 const Login = () => {
     const [
@@ -60,16 +63,24 @@ const Login = () => {
                 </Button>
                 <p
                     onClick={async () => {
-                        await sendPasswordResetEmail(emailRef.current.value);
-                        alert('Sent Email');
+                        const email = emailRef.current.value;
+                        if (email) {
+                            await sendPasswordResetEmail(email);
+                            toast('Sent Email');
+                        }
+                        else {
+                            toast('Please Enter a Valid Email');
+                        }
 
                     }}
-                    className='forgot-btn text-danger text-center'>Forgot Password? <br />{error1 && error1.message} {sending && 'Sending...'}
+                    className='forgot-btn text-danger text-center'>Forgot Password? <br />{error1 && error1.message} {sending && <BeatLoader color='blue' size={10}></BeatLoader>}
                 </p>
                 <p className='text-center'>New to Genius Car? <Link onClick={navigateSignup} className='text-danger text-decoration-none' to='/signup'>Register</Link></p>
 
             </Form>
             <SocialLogin />
+            <ToastContainer />
+
         </div >
     );
 };
