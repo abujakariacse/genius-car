@@ -5,6 +5,7 @@ import auth from '../../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import './SignUp.css'
+import PageTitle from '../../../hooks/PageTitle/PageTitle';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
@@ -49,6 +50,7 @@ const SignUp = () => {
     }
     return (
         <div className='container w-50 mt-2 signup-container'>
+            <PageTitle title='Register'></PageTitle>
             <h2>Please Register</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">

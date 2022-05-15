@@ -8,6 +8,7 @@ import './Login.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
+import PageTitle from '../../../hooks/PageTitle/PageTitle';
 
 const Login = () => {
     const [
@@ -41,6 +42,7 @@ const Login = () => {
     }
     return (
         <div className='container w-50 mx-auto mt-3 login-container'>
+            <PageTitle title='Login'></PageTitle>
             <h2 className='text-primary'>Please Login</h2>
             <Form onSubmit={handleOnSubmit} className='mt-3'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
