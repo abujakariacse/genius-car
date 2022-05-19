@@ -12,6 +12,7 @@ import NotFound from './Pages/NotFound/NotFound';
 import ServiceDetail from './Pages/ServiceDetail/ServiceDetail';
 import Footer from './Pages/Shared/Footer/Footer';
 import Header from './Pages/Shared/Header/Header';
+import UpdateService from './Pages/UpdateService/UpdateService';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path='/checkout' element={<RequireAuth><Checkout /></RequireAuth>}></Route>
         <Route path='/addservice' element={<RequireAuth><AddService /></RequireAuth>}></Route>
         <Route path='/manage' element={<RequireAuth><ManageService /></RequireAuth>}></Route>
+        <Route path='/update/:id' element={<RequireAuth><UpdateService /></RequireAuth>}></Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
       {/* <Footer></Footer> */}

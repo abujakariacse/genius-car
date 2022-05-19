@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import useServices from '../../hooks/useServices/useSevices';
 
 const ManageService = () => {
+    const navigate = useNavigate();
     const [services, setServices] = useServices();
     const handleDeleteFromDB = (id) => {
         const proceed = window.confirm('Are you sure to delete');
@@ -21,12 +23,15 @@ const ManageService = () => {
 
 
     }
+    const handleUpdate = id => {
+        navigate(`/update/` + id);
+    }
     return (
         <div className='w-50 mx-auto text-center'>
             <h2>Manage Service</h2>
             {
                 services.map(service => <div key={service._id}>
-                    <h5>{service.name} <button onClick={() => handleDeleteFromDB(service._id)}>X</button></h5>
+                    <h5>{service.name} <button onClick={() => handleDeleteFromDB(service._id)}>Delete</button> <button onClick={() => handleUpdate(service._id)}>Update</button></h5>
                 </div>)
             }
         </div>
