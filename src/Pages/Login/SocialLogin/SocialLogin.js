@@ -4,8 +4,9 @@ import facebook from '../../../images/social/facebook.png';
 import github from '../../../images/social/github.png';
 import { useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+
 
 
 const SocialLogin = () => {
@@ -13,10 +14,13 @@ const SocialLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
     const [signInWithFacebook, user2, loading2, error2] = useSignInWithFacebook(auth);
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
     let errorElement;
     let loadingElement;
     if (user || user1 || user2) {
-        navigate('/home');
+        navigate(from, { replace: true });
     }
     if (loading || loading1 || loading2) {
         loadingElement = <Spinner animation="border" role="status">

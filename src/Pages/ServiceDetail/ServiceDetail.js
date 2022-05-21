@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../../hooks/PageTitle/PageTitle';
+import useSericeDetail from '../../hooks/useServiceDetail/useServiceDetail';
 import './ServiceDetails.css';
 
 const ServiceDetail = () => {
     const navigate = useNavigate();
     const { serviceId } = useParams();
     const handleProceedCheckout = () => {
-        navigate('/checkout');
+        navigate(`/checkout/${serviceId}`);
     }
-    const [service, setService] = useState({});
-    useEffect(() => {
-        const url = `http://localhost:5000/service/${serviceId}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setService(data))
-    }, [serviceId]);
+    const [service] = useSericeDetail(serviceId);
     const { img, name, price, description } = service;
     return (
         <div className='container details-container text-center mt-5'>

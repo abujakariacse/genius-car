@@ -9,6 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
 import PageTitle from '../../../hooks/PageTitle/PageTitle';
+import axios from 'axios';
+
 
 const Login = () => {
     const [
@@ -28,15 +30,20 @@ const Login = () => {
     let from = location.state?.from?.pathname || "/";
 
     if (user) {
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
     }
-    const handleOnSubmit = e => {
+    const handleOnSubmit = async e => {
         e.preventDefault();
         const email = emailRef.current.value;
         const pass = passRef.current.value;
-        signInWithEmailAndPassword(email, pass)
-
+        await signInWithEmailAndPassword(email, pass);
+        const userEmail = { email: email };
+        const { data } = await axios.post('http://localhost:5000/login', userEmail)
+        console.log(data)
+        localStorage.setItem('accessToken', data.token)
+        navigate(from, { replace: true });
     }
+
     const navigateSignup = () => {
         navigate('/signup')
     }

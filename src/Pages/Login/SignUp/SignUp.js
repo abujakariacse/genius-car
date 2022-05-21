@@ -41,7 +41,6 @@ const SignUp = () => {
         setError('');
         await createUserWithEmailAndPassword(email, pass);
         await updateProfile({ displayName: name });
-        alert('Profile Updated');
 
 
     }
